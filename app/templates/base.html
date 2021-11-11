@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +10,20 @@
     <script src="{% static 'scripts/main.js' %}" defer></script>
     <title>Teachers VS Students</title>
 </head>
+
 <body>
+    <header class="nav">
+        <img class="logo" src="../static/images/logo2.jpeg" alt="logo">
+        <nav>
+            <ul class="nav__links">
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Profile</a></li>
+            </ul>
+        </nav>
+        <a class="cta" href="#"><button>Contact</button></a>
+    </header>
     {% block content %}{% endblock %}
 </body>
+
 </html>
