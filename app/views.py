@@ -91,8 +91,19 @@ class Course_list(TemplateView):
         context = super().get_context_data(**kwargs)
         context["courses"] = Course.objects.all()
         return context
-        
+
 class CourseDetail(DetailView):
     model = Course
     template_name = "course_detail.html"
+
+class LessonCreate(View):
+    
+
+    def post(self, request, pk):
+        title = request.POST.get("title")
+        description = request.POST.get("description")
+        course = Course.objects.get(pk=pk)
+        Lesson.objects.create(title=title, description=description, course=course)
+        return redirect('course_detail', pk=pk)   
+    
  

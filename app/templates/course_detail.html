@@ -7,18 +7,86 @@
 <div class="row" style="color: transparent;">
 
     <a href="#" style="text-decoration: none;">
-      <div class="card anchor "
-        style="width: 18rem; padding: 20px; margin: 20px; background:#c0c49b;">
-        <img src="{{course.image}}" class="card-img-top" alt="{{course.name}}">
-        <div class="card-body">
-          <h5 class="card-title" style="color: black;">{{course.name}}</h5>
-          <p class="card-text ">{{course.description}}</p>
+        <div class="card anchor " style="width: 18rem; padding: 20px; margin: 20px; background:#c0c49b;">
+            <img src="{{course.image}}" class="card-img-top" alt="{{course.name}}">
+            <div class="card-body">
+                <h5 class="card-title" style="color: black;">{{course.name}}</h5>
+                <p class="card-text ">{{course.description}}</p>
+            </div>
         </div>
-      </div>
     </a>
 
-  
+</div>
 
-  </div>
+{% for lesson in course.lessons.all %}
+<div class="row">
+
+    <div class="card anchor" style="
+        width: 18rem;
+        padding: 20px;
+        margin: 20px;
+        background: #18413b;
+      ">
+        <a href="">
+            <div class="card-body">
+                <h5 class="card-title" style="color: black">{{lesson.title}}</h5>
+                <p class="card-text"><small class="text-muted">By: {{user.username}}</small></p>
+                <p class="card-text">{{lesson.description}}</p>
+
+
+            </div>
+            {% empty %}
+            <div class="card-body">
+
+                <p class="card-text">No Lessons </p>
+
+            </div>
+        </a>
+    </div>
+
+
+</div>
+{% endfor %}
+
+<a action="{% url 'lesson_create' course.pk %}" data-toggle="modal" data-target="#staticBackdrop">
+    add lesson
+</a>
+
+<div class="modal fade" id="staticBackdrop"  tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">?</h5>
+            </div>
+            <div class="modal-footer">
+                <form class="mb-5" action="{% url 'lesson_create' course.pk %}" method="post">
+                    {% csrf_token %}
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input class="form-control" type="text" name="title" placeholder="Title" required />
+                        </div>
+                        <div class="control">
+                            <input class="form-control" type="description" name="description" placeholder="description"
+                                required />
+                        </div>
+                        <div class="control">
+                            <input class="button is-primary" type="submit" value="Add Lesson" />
+                        </div>
+                    </div>
+                </form>
+                <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button> -->
+                <!-- Bootstrap popup modal -->
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+<!-- </a> -->
+
+</div>
+
 
 {% endblock %}

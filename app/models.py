@@ -41,7 +41,7 @@ class Lesson(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=250)
     description = models.CharField(max_length=9999)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, default=1)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="lessons")
     ccreated_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
