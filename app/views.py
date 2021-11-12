@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout,authenticate
 from django.views import View
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from .models import User, Student, Teacher, Course, Lesson
 from .form import StudentSignUpForm, TeacherSignUpForm
 from django.contrib.auth.forms import AuthenticationForm
@@ -91,5 +91,8 @@ class Course_list(TemplateView):
         context = super().get_context_data(**kwargs)
         context["courses"] = Course.objects.all()
         return context
-
+        
+class CourseDetail(DetailView):
+    model = Course
+    template_name = "course_detail.html"
  
