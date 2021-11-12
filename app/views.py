@@ -4,7 +4,7 @@ from django.views import View
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from django.views.generic import CreateView
-from .models import User
+from .models import User, Student, Teacher, Course, Lesson
 from .form import StudentSignUpForm, TeacherSignUpForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
@@ -16,8 +16,15 @@ class Home(TemplateView):
 class TeacherProfile(TemplateView):
     template_name = "teachers_profile.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["courses"] = Course.objects.all()
+        return context
+
 class StudentsProfile(TemplateView):
-    template_name = "students_profile.html"    
+    template_name = "students_profile.html"   
+
+
     
 # registration or signup
 
@@ -73,3 +80,16 @@ def login_request(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+# Courses
+
+class Course_list(TemplateView):
+    template_name = "course_list.html"
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["courses"] = Course.objects.all()
+        return context
+
+ 
