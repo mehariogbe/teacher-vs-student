@@ -112,20 +112,24 @@ class LessonCreate(View):
         course = Course.objects.get(pk=pk)
         Lesson.objects.create(title=title, description=description, course=course)
         return redirect('course_detail', pk=pk)
+
 class LessonEdit(UpdateView):
     model = Lesson
     fields = ["title", "description", "course"]
     template_name = "lesson_edit.html"
-    success_url = "/class/"
+    # success_url = "/class/"
     
-    # def get_success_url(self ):
-        
-    #     return reverse('course_detail', kwargs={'pk': self.object.pk})
+    def get_success_url(self ):
+        return reverse('lesson_detail', kwargs={'pk': self.object.pk})
 
 class LessonDelete(DeleteView):
     model = Lesson
     template_name = "lesson_delete.html"
     success_url = "/class/"
+
+class Lesson_detail(DetailView):
+    model = Lesson
+    template_name = "lesson_detail.html"    
 
 
 class ClassRoom(TemplateView):

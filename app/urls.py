@@ -15,10 +15,11 @@ urlpatterns = [
     path('courses/', views.Course_list.as_view(), name='courses'),
     path('courses/<int:pk>/', views.CourseDetail.as_view(), name="course_detail"),
 
-    path('courses/<int:pk>/lessons/add/', views.LessonCreate, name="lesson_create"),
-    path('courses/<int:pk>/lessons/edit/', views.LessonEdit.as_view(), name="lesson_edit"),
-    path('courses/<int:pk>/lessons/delete', views.LessonDelete.as_view(), name="lesson_delete"),
-
+    path('courses/<int:pk>/lessons/add/', views.LessonCreate.as_view(), name="lesson_create"),
+    path('lesson/<int:pk>/', views.Lesson_detail.as_view(), name="lesson_detail"),
+    path('lesson/<int:pk>/edit/', views.LessonEdit.as_view(), name="lesson_edit"),
+    path('lesson/<int:pk>/delete', views.LessonDelete.as_view(), name="lesson_delete"),
+    
     path('class/', views.ClassRoom.as_view(), name='class')
 
 

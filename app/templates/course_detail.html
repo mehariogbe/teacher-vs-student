@@ -25,7 +25,7 @@
 {% for lesson in course.lessons.all %}
 <div class="gallery">
 
-    <a href="" style="text-decoration: none;">
+    <a href="{% url 'lesson_detail' lesson.pk %}" style="text-decoration: none;">
         <!-- link to post_detail.html when it's done! -->
         <div class="card anchor" style="width: 18rem; padding: 20px; margin: 20px; background:#c0c49b;">
             <h5 class="card-title" style="color: black;">{{lesson.course}}</h5>

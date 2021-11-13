@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="card-body">
+    <!-- random text until we get data to show -->
+    <h5 class="card-title" style="color:#D5DCDC;">{{lesson.course}}</h5>
+    <h5 class="user-name">{{lesson.title}} </h5>
+   <!-- adding random image until we can get data to show -->
+    <h5 class="card-text" style="color:#D5DCDC; font-family: Gill Sans, sans-serif;">{{lesson.description}}</h5>
+ </div>
+ <!-- BACK button -->
+            <a href="{% url 'lesson_edit' lesson.pk %}">Edit</a><br>
+            <a href="{% url 'lesson_delete' lesson.pk %}">Delete</a>
+ 
+   <br><br>
+ <!-- BACK button -->
+</div>
+
+{% endblock %}
