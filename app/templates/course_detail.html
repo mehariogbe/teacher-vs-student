@@ -7,6 +7,11 @@
 <a action="{% url 'lesson_create' course.pk %}" data-toggle="modal" data-target="#staticBackdrop">
     add lesson
 </a>
+<a action="{% url 'lab_create' course.pk %}" data-toggle="modal" data-target="#staticBackdrop2" >
+    add lab
+</a>
+
+
 
 <div class="row" style="color: transparent;">
 
@@ -36,6 +41,7 @@
             </div>
             <a href="{% url 'lesson_edit' lesson.pk %}">Edit</a><br>
             <a href="{% url 'lesson_delete' lesson.pk %}">Delete</a>
+
         </div>
     </a>
     {% empty %}
@@ -46,8 +52,6 @@
     </div>
     </a>
 </div>
-
-
 </div>
 
 {% endfor %}
@@ -70,7 +74,7 @@
                         </div>
                         <div class="control">
                             <input class="form-control" type="description" name="description" placeholder="description"
-                                required />
+                                 />
                         </div>
                         <div class="control">
                             <input class="button is-primary" type="submit" value="Add Lesson" />
@@ -90,5 +94,84 @@
 
 </div>
 
+
+<div class="modal fade" id="staticBackdrop2" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">?</h5>
+            </div>
+            <div class="modal-footer">
+                <form class="mb-5" action="{% url 'lab_create' course.pk %}" method="post">
+                    {% csrf_token %}
+                    <div class="field has-addons">
+                        <div class="dropdown">
+                            <select name="types" required id="id_types">
+                                <option value selected>---------</option>
+                                <option value="Lab">lab</option>
+                                <option value="Homework">Homework</option>
+                                <option value="Project">Project</option>
+                            </select>
+                        </div>
+                        <div class="control">
+                            <input class="form-control" type="text" name="title" placeholder="Title" required />
+                        </div>
+                        <div class="control">
+                            <input class="form-control" type="description" name="description" placeholder="description"
+                                required />
+                        </div>
+                        <div class="control">
+                            <input class="form-control" type="checkbox" name="lab_deliverable" default="false"
+                                 />
+                        </div>
+                        <div class="control">
+                            <input class="button is-primary" type="submit" value="Add lab" />
+                        </div>
+                    </div>
+                </form>
+                <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button> -->
+                <!-- Bootstrap popup modal -->
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+<!-- </a> -->
+
+</div>
+
+
+{% for lab in course.labs.all %}
+<div class="gallery">
+
+    <a href="" style="text-decoration: none;">
+        <!-- link to post_detail.html when it's done! -->
+        <div class="card anchor" style="width: 18rem; padding: 20px; margin: 20px; background:#c0c49b;">
+            <h5 class="card-title" style="color: black;">{{lab.types}}</h5>
+
+            <div class="card-body">
+                <h5 class="card-title" style="color: black;">{{lab.course}}</h5>
+                <h5 class="card-title" style="color: black;">{{lab.title}}</h5>
+                <p class="card-text ">{{lab.description}}</p>
+                <h5 class="card-title" style="color: black;">{{lab.lab_deliverable}}</h5>
+            </div>
+           
+
+        </div>
+    </a>
+    {% empty %}
+    <div class="card-body">
+
+        <p class="card-text">No Labs </p>
+
+    </div>
+    </a>
+</div>
+</div>
+
+{% endfor %}
 
 {% endblock %}

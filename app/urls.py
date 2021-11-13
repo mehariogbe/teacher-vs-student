@@ -20,7 +20,9 @@ urlpatterns = [
     path('lesson/<int:pk>/edit/', views.LessonEdit.as_view(), name="lesson_edit"),
     path('lesson/<int:pk>/delete', views.LessonDelete.as_view(), name="lesson_delete"),
     
-    path('class/', views.ClassRoom.as_view(), name='class')
+    path('class/', views.ClassRoom.as_view(), name='class'),
+
+    path('courses/<int:pk>/labs/add', views.LabCreate.as_view(), name="lab_create"),
 
 
 

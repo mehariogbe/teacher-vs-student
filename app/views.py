@@ -2,12 +2,13 @@ from django.db.models import fields
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import login, logout, authenticate
+from django.views.generic.list import ListView
 from django.views import View
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from django.views.generic import CreateView, DetailView
 from django.views.generic.edit import UpdateView, DeleteView
-from .models import User, Student, Teacher, Course, Lesson
+from .models import Lab, User, Student, Teacher, Course, Lesson
 from .form import StudentSignUpForm, TeacherSignUpForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
@@ -88,7 +89,7 @@ def logout_view(request):
     logout(request)
     return redirect('/')
 
-# Courses
+# Views for Courses
 
 
 class Course_list(TemplateView):
@@ -104,32 +105,41 @@ class CourseDetail(DetailView):
     model = Course
     template_name = "course_detail.html"
 
+# Views for Lesson
+
+
 class LessonCreate(View):
 
     def post(self, request, pk):
         title = request.POST.get("title")
         description = request.POST.get("description")
         course = Course.objects.get(pk=pk)
-        Lesson.objects.create(title=title, description=description, course=course)
+        Lesson.objects.create(
+            title=title, description=description, course=course)
         return redirect('course_detail', pk=pk)
+
 
 class LessonEdit(UpdateView):
     model = Lesson
     fields = ["title", "description", "course"]
     template_name = "lesson_edit.html"
     # success_url = "/class/"
-    
-    def get_success_url(self ):
+
+    def get_success_url(self):
         return reverse('lesson_detail', kwargs={'pk': self.object.pk})
+
 
 class LessonDelete(DeleteView):
     model = Lesson
     template_name = "lesson_delete.html"
     success_url = "/class/"
 
+
 class Lesson_detail(DetailView):
     model = Lesson
-    template_name = "lesson_detail.html"    
+    template_name = "lesson_detail.html"
+
+# Views for ClassRoom
 
 
 class ClassRoom(TemplateView):
@@ -138,4 +148,31 @@ class ClassRoom(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["lessons"] = Lesson.objects.all()
+        context["labs"] = Lab.objects.all()
         return context
+
+  
+# Views for Lab
+
+
+class LabCreate(CreateView):
+
+    def post(self, request, pk):
+        types = request.POST.get("types")
+        title = request.POST.get("title")
+        description = request.POST.get("description")
+        course = Course.objects.get(pk=pk)
+        lab_deliverable = request.POST.get('lab_deliverable')
+        if lab_deliverable == 'on':
+            lab_deliverable = True
+        else:
+            lab_deliverable = False
+        Lab.objects.create(types=types, title=title, description=description,
+                           course=course, lab_deliverable=lab_deliverable)
+        return redirect('course_detail', pk=pk)
+
+# class LabCreate(CreateView):
+#     model = Lab
+#     fields = ["types", "title", "description", "course", "lab_deliverable"]
+#     template_name = "lab_create.html"
+#     success_url = "/class/"
