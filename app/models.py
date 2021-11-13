@@ -48,4 +48,20 @@ class Lesson(models.Model):
     def __str__(self):
         return self.title
 
+class Lab(models.Model):
+    LAB_TYPES =(
+        ('L', 'Lab'),
+        ('H', 'Homework'),
+        ('P', 'Project'),
+    )
+    id = models.AutoField(primary_key=True)
+    types = models.CharField(max_length=1, choices=LAB_TYPES)
+    title = models.CharField(max_length=250)
+    description = models.CharField(max_length=9999)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="labs")
+    lab_deliverable = models.BooleanField(default=False)
+    ccreated_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.title
