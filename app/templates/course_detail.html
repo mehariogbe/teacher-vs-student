@@ -147,7 +147,7 @@
 {% for lab in course.labs.all %}
 <div class="gallery">
 
-    <a href="" style="text-decoration: none;">
+    <a href="{% url 'lab_detail' lab.pk %}" style="text-decoration: none;">
         <!-- link to post_detail.html when it's done! -->
         <div class="card anchor" style="width: 18rem; padding: 20px; margin: 20px; background:#c0c49b;">
             <h5 class="card-title" style="color: black;">{{lab.types}}</h5>
@@ -158,7 +158,8 @@
                 <p class="card-text ">{{lab.description}}</p>
                 <h5 class="card-title" style="color: black;">{{lab.lab_deliverable}}</h5>
             </div>
-           
+            <a href="{% url 'lab_edit' lab.pk %}">Edit</a><br>
+            <a href="{% url 'lab_delete' lab.pk %}">Delete</a>
 
         </div>
     </a>

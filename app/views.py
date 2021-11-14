@@ -123,7 +123,6 @@ class LessonEdit(UpdateView):
     model = Lesson
     fields = ["title", "description", "course"]
     template_name = "lesson_edit.html"
-    # success_url = "/class/"
 
     def get_success_url(self):
         return reverse('lesson_detail', kwargs={'pk': self.object.pk})
@@ -176,3 +175,19 @@ class LabCreate(CreateView):
 #     fields = ["types", "title", "description", "course", "lab_deliverable"]
 #     template_name = "lab_create.html"
 #     success_url = "/class/"
+class Lab_detail(DetailView):
+    model = Lab
+    template_name = "lab_detail.html"
+
+class LabEdit(UpdateView):
+    model = Lab
+    fields = ["types", "title", "description", "course", "lab_deliverable"]
+    template_name = "lab_edit.html"
+
+    def get_success_url(self):
+        return reverse('lab_detail', kwargs={'pk': self.object.pk})
+
+class LabDelete(DeleteView):
+    model = Lab
+    template_name = "lab_delete.html"
+    success_url = "/class/"        

@@ -27,7 +27,7 @@
 
     <div class="gallery">
         {% for lab in labs %}
-        <a href="" style="text-decoration: none;">
+        <a href="{% url 'lab_detail' lab.pk %}" style="text-decoration: none;">
           <div class="card anchor"
             style="width: 18rem; padding: 20px; margin: 20px; background:#c0c49b;">
             <h5 class="card-title" style="color: black;">{{lab.types}}</h5>

@@ -1,0 +1,20 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="card-body">
+
+    <h5 class="card-title" style="color:#D5DCDC;">{{lab.course}}</h5>
+    <h5 class="card-title" style="color:#D5DCDC;">{{lab.types}}</h5>
+    <h5 class="user-name">{{lab.title}} </h5>
+    <h5 class="card-text" style="color:#D5DCDC; font-family: Gill Sans, sans-serif;">{{lab.description}}</h5>
+    {% if lab.lab_deliverable %}
+    <p class="card-text">Deliverable</p>
+    {% endif %}
+</div>
+
+<a href="{% url 'lab_edit' lab.pk %}">Edit</a><br>
+<a href="{% url 'lab_delete' lab.pk %}">Delete</a>
+
+<br><br>
+
+
+{% endblock %}

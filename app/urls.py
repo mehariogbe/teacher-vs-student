@@ -23,6 +23,9 @@ urlpatterns = [
     path('class/', views.ClassRoom.as_view(), name='class'),
 
     path('courses/<int:pk>/labs/add', views.LabCreate.as_view(), name="lab_create"),
+    path('lab/<int:pk>/', views.Lab_detail.as_view(), name="lab_detail"),
+    path('lab/<int:pk>/edit/', views.LabEdit.as_view(), name="lab_edit"),
+    path('lab/<int:pk>/delete', views.LabDelete.as_view(), name="lab_delete"),
 
 
 
