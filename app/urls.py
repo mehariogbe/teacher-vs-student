@@ -27,6 +27,9 @@ urlpatterns = [
     path('lab/<int:pk>/edit/', views.LabEdit.as_view(), name="lab_edit"),
     path('lab/<int:pk>/delete', views.LabDelete.as_view(), name="lab_delete"),
 
+    path('lab/<int:pk>/deliverable',views.DeliverableCreate.as_view(), name="deliverable_create"),
+    path('deliverable/', views.DeliverablePage.as_view(), name='deliverable'),
+
 
 
 ]

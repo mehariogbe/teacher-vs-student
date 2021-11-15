@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
+
 class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_teacher = models.BooleanField(default=False)
@@ -11,23 +12,33 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+
 class Teacher(models.Model):
+
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, primary_key=True)
+    img = models.CharField(max_length=250)
+    created_at = models.DateTimeField(auto_now_add=True)
     
-     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-     img = models.CharField(max_length=250)
-     created_at = models.DateTimeField(auto_now_add=True) 
+    def __str__(self):
+        return self.user
+
 
 class Student(models.Model):
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, primary_key=True)
     img = models.CharField(max_length=250)
-    created_at = models.DateTimeField(auto_now_add=True)            
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user
 
 
 class Course(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    image  = models.CharField(max_length=1000)
+    image = models.CharField(max_length=1000)
     description = models.CharField(max_length=9999)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -37,19 +48,25 @@ class Course(models.Model):
     def __str__(self):
         return self.name
 
+
 class Lesson(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=250)
     description = models.CharField(max_length=9999)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="lessons")
+    course = models.ForeignKey(
+        Course, on_delete=models.CASCADE, related_name="lessons")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ['created_at']
+
+
 class Lab(models.Model):
-    LAB_TYPES =(
+    LAB_TYPES = (
         ('Lab', 'Lab'),
         ('Homework', 'Homework'),
         ('Project', 'Project'),
@@ -58,10 +75,32 @@ class Lab(models.Model):
     types = models.CharField(max_length=20, choices=LAB_TYPES)
     title = models.CharField(max_length=250)
     description = models.CharField(max_length=9999)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="labs")
+    course = models.ForeignKey(
+        Course, on_delete=models.CASCADE, related_name="labs")
     lab_deliverable = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        ordering = ['created_at']
+
+
+class Deliverable(models.Model):
+    id = models.AutoField(primary_key=True)
+    lab = models.ForeignKey(Lab, on_delete=models.CASCADE,
+                            related_name="deliverables")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="deliverables")
+    title = models.CharField(max_length=250)
+    description = models.CharField(max_length=9999)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+     
+
+    class Meta:
+        ordering = ['created_at']

@@ -8,6 +8,7 @@
     <h5 class="card-text" style="color:#D5DCDC; font-family: Gill Sans, sans-serif;">{{lab.description}}</h5>
     {% if lab.lab_deliverable %}
     <p class="card-text">Deliverable</p>
+    <a action="{% url 'deliverable_create' lab.pk %}" data-toggle="modal" data-target="#staticBackdrop3">Deliver here</a>
     {% endif %}
 </div>
 
@@ -16,5 +17,39 @@
 
 <br><br>
 
+<div class="modal fade" id="staticBackdrop3" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Deliverable</h5>
+            </div>
+            <div class="modal-footer">
+                <form class="mb-5" action="{% url 'deliverable_create' lab.pk %}" method="post">
+                    {% csrf_token %}
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input class="form-control" type="text" name="title" placeholder="Title" required />
+                        </div>
+                        <div class="control">
+                            <input class="form-control" type="description" name="description" placeholder="description"
+                                 />
+                        </div>
+                        <div class="control">
+                            <input class="button is-primary" type="submit" value="deliver" />
+                        </div>
+                    </div>
+                </form>
+                <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button> -->
+                <!-- Bootstrap popup modal -->
+            </div>
+        </div>
+    </div>
+</div>
 
+</div>
+</div>
+<!-- </a> -->
+
+</div>
 {% endblock %}

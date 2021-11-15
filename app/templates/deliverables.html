@@ -1,0 +1,20 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Deliverables</h1>
+
+<div class="gallery">
+    {% for deliverable in deliverables %}
+    <a href="" style="text-decoration: none;">
+        <div class="card anchor" style="width: 18rem; padding: 20px; margin: 20px; background:#c0c49b;">
+            <h5 class="card-title" style="color: black;">{{deliverable.lab}}</h5>
+
+            <div class="card-body">
+                <h5 class="card-title" style="color: black;">{{deliverable.title}}</h5>
+                <p class="card-text ">{{deliverable.description}}</p>
+                <p class="card-text ">BY: {{deliverable.user}}</p>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

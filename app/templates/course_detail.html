@@ -156,7 +156,9 @@
                 <h5 class="card-title" style="color: black;">{{lab.course}}</h5>
                 <h5 class="card-title" style="color: black;">{{lab.title}}</h5>
                 <p class="card-text ">{{lab.description}}</p>
-                <h5 class="card-title" style="color: black;">{{lab.lab_deliverable}}</h5>
+                {% if lab.lab_deliverable %}
+              <p class="card-text">Deliverable</p>
+              {% endif %}
             </div>
             <a href="{% url 'lab_edit' lab.pk %}">Edit</a><br>
             <a href="{% url 'lab_delete' lab.pk %}">Delete</a>

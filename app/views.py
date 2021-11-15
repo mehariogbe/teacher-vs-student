@@ -8,10 +8,11 @@ from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from django.views.generic import CreateView, DetailView
 from django.views.generic.edit import UpdateView, DeleteView
-from .models import Lab, User, Student, Teacher, Course, Lesson
+from .models import Deliverable, Lab, User, Student, Teacher, Course, Lesson
 from .form import StudentSignUpForm, TeacherSignUpForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+
 
 # Create your views here.
 
@@ -150,9 +151,8 @@ class ClassRoom(TemplateView):
         context["labs"] = Lab.objects.all()
         return context
 
-  
-# Views for Lab
 
+# Views for Lab
 
 class LabCreate(CreateView):
 
@@ -175,9 +175,12 @@ class LabCreate(CreateView):
 #     fields = ["types", "title", "description", "course", "lab_deliverable"]
 #     template_name = "lab_create.html"
 #     success_url = "/class/"
+
+
 class Lab_detail(DetailView):
     model = Lab
     template_name = "lab_detail.html"
+
 
 class LabEdit(UpdateView):
     model = Lab
@@ -187,7 +190,32 @@ class LabEdit(UpdateView):
     def get_success_url(self):
         return reverse('lab_detail', kwargs={'pk': self.object.pk})
 
+
 class LabDelete(DeleteView):
     model = Lab
     template_name = "lab_delete.html"
-    success_url = "/class/"        
+    success_url = "/class/"
+
+# Views for deliverables
+
+
+class DeliverableCreate(CreateView):
+    
+    def post(self, request, pk):
+        user = self.request.user
+        title = request.POST.get("title")
+        description = request.POST.get("description")
+        lab = Lab.objects.get(pk=pk)
+        Deliverable.objects.create(
+            title=title, description=description, lab=lab, user=user)
+        return redirect('lab_detail', pk=pk)
+
+class DeliverablePage(TemplateView):
+    template_name = "deliverables.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["deliverables"] = Deliverable.objects.all()
+        
+        return context
+    
