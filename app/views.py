@@ -243,4 +243,12 @@ class CommentEdit(UpdateView):
         lesson = self.object.lesson
         return reverse_lazy('lesson_detail', kwargs={'pk': lesson.id }) 
 
-       
+class CommentDelete(DeleteView):
+    model = Comment
+    template_name = "comment_delete.html"
+
+    def get_success_url(self):
+        lesson = self.object.lesson
+        return reverse_lazy('lesson_detail', kwargs={'pk': lesson.id })
+  
+
