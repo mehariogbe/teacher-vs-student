@@ -7,12 +7,21 @@
    <!-- adding random image until we can get data to show -->
     <h5 class="card-text" style="color:#D5DCDC; font-family: Gill Sans, sans-serif;">{{lesson.description}}</h5>
  </div>
- <!-- BACK button -->
+
             <a href="{% url 'lesson_edit' lesson.pk %}">Edit</a><br>
             <a href="{% url 'lesson_delete' lesson.pk %}">Delete</a>
  
    <br><br>
- <!-- BACK button -->
+   <div class="card-footer">
+    {% for comment in lesson.comments.all %}
+        <p>
+            <span class="font-weight-bold">{{ comment.author }} &middot;</span>
+            {{ comment }}
+        </p>
+        <a href="{% url 'comment_edit' comment.pk %}">edit</a>
+    {% endfor %}
+    <a href="{% url 'comment_create' lesson.pk %}">+ New Comment</a>
+</div>    
 </div>
 
 {% endblock %}

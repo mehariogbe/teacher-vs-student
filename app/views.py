@@ -8,10 +8,11 @@ from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from django.views.generic import CreateView, DetailView
 from django.views.generic.edit import UpdateView, DeleteView
-from .models import Deliverable, Lab, User, Student, Teacher, Course, Lesson
+from .models import Comment, Deliverable, Lab, User, Student, Teacher, Course, Lesson
 from .form import StudentSignUpForm, TeacherSignUpForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+from django.urls import reverse_lazy
 
 
 # Create your views here.
@@ -219,3 +220,27 @@ class DeliverablePage(TemplateView):
         
         return context
     
+#  Views For Comment
+
+class CommentCreate(CreateView):
+    model = Comment
+    template_name = "comment_create.html"
+    fields = ('comment',)
+
+    def post(self, request, pk):
+        author = self.request.user
+        comment = request.POST.get("comment")
+        lesson = Lesson.objects.get(pk=pk)
+        Comment.objects.create(author=author, comment=comment, lesson=lesson)
+        return redirect('lesson_detail', pk=pk)
+
+class CommentEdit(UpdateView):
+    model = Comment
+    template_name = "comment_edit.html"
+    fields = ('comment',)
+
+    def get_success_url(self):
+        lesson = self.object.lesson
+        return reverse_lazy('lesson_detail', kwargs={'pk': lesson.id }) 
+
+       

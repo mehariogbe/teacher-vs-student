@@ -30,6 +30,9 @@ urlpatterns = [
     path('lab/<int:pk>/deliverable',views.DeliverableCreate.as_view(), name="deliverable_create"),
     path('deliverable/', views.DeliverablePage.as_view(), name='deliverable'),
 
+    path('lesson/<int:pk>/comment',views.CommentCreate.as_view(), name="comment_create"),
+    path('lesson/<int:pk>/comment_edit',views.CommentEdit.as_view(), name="comment_edit"),
+
 
 
 ]
