@@ -1,4 +1,5 @@
 from django.db.models import fields
+
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import login, logout, authenticate
@@ -13,6 +14,9 @@ from .form import StudentSignUpForm, TeacherSignUpForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 
 
 # Create your views here.
@@ -21,7 +25,12 @@ from django.urls import reverse_lazy
 class Home(TemplateView):
     template_name = "home.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["courses"] = Course.objects.all()
+        return context
 
+@method_decorator(login_required,  name='dispatch')
 class TeacherProfile(TemplateView):
     template_name = "teachers_profile.html"
 
@@ -30,7 +39,7 @@ class TeacherProfile(TemplateView):
         context["courses"] = Course.objects.all()
         return context
 
-
+@method_decorator(login_required,  name='dispatch')
 class StudentsProfile(TemplateView):
     template_name = "students_profile.html"
 
@@ -106,6 +115,7 @@ class Course_list(TemplateView):
 class CourseDetail(DetailView):
     model = Course
     template_name = "course_detail.html"
+    
 
 # Views for Lesson
 
@@ -142,7 +152,7 @@ class Lesson_detail(DetailView):
 
 # Views for ClassRoom
 
-
+@method_decorator(login_required,  name='dispatch')
 class ClassRoom(TemplateView):
     template_name = "class.html"
 

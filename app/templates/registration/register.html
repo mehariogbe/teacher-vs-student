@@ -1,5 +1,15 @@
 {% extends 'base.html' %} {% block content %}
-
+<style>
+    body {
+       background-image: url("../static/images/bg6.jpg");
+       height: 100%;
+     
+       background-position: center;
+       background-repeat: no-repeat;
+       background-size: cover;
+   
+    }
+   </style>
 <div >
     <a type="button" class="btn btn-block" href="{% url 'teacher_signup' %}">I am a Teacher</a>
 </div>

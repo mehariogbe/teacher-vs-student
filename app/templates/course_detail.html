@@ -1,46 +1,70 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Coruses</h1>
-<h2>welcome: {{user.username}}</h2>
-<a href="{% url 'logout' %}">Logout</a> <br>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat:wght@500&display=swap');
 
-<a action="{% url 'lesson_create' course.pk %}" data-toggle="modal" data-target="#staticBackdrop">
-    add lesson
-</a>
-<a action="{% url 'lab_create' course.pk %}" data-toggle="modal" data-target="#staticBackdrop2" >
-    add lab
-</a>
+    body {
 
+        background-image: linear-gradient(rgba(247, 235, 204, 0.892), rgba(106, 164, 250, 0.81));
+    }
+</style>
 
 
-<div class="row" style="color: transparent;">
+<h1 style="text-align: center; font-family: 'Abril Fatface', cursive; padding-top: 0%; font-size: 80px;">Course
+    {{course.name}}</h1>
 
-    <a href="#" style="text-decoration: none;">
-        <div class="card anchor " style="width: 18rem; padding: 20px; margin: 20px; background:#c0c49b;">
-            <img src="{{course.image}}" class="card-img-top" alt="{{course.name}}">
-            <div class="card-body">
-                <h5 class="card-title" style="color: black;">{{course.name}}</h5>
-                <p class="card-text ">{{course.description}}</p>
-            </div>
-        </div>
+{% if user.is_teacher %}
+<div style="font-family: Abril Fatface; position: center;">
+    <a action="{% url 'lesson_create' course.pk %}" style="padding-right: 15px; cursor: pointer; font-size: 20px;"
+        data-toggle="modal" data-target="#staticBackdrop">
+        Add Lesson
     </a>
-
+    <a action="{% url 'lab_create' course.pk %}" style="cursor: pointer; font-size: 20px;" data-toggle="modal"
+        data-target="#staticBackdrop2">
+        Add Lab
+    </a>
 </div>
+{% endif %}
 
-{% for lesson in course.lessons.all %}
-<div class="gallery">
+
+<img style='
+height: auto;
+width: auto;
+max-height: 250px;
+max-width: 50%;
+display: block;
+margin-left: auto;
+margin-right: auto;
+border-radius: 5px;
+' src="{{course.image}}" />
+<br />
+<p style="
+text-align: center;
+background: rgba(93, 67, 46, 0);
+border-radius: 5px;
+">
+    <span style="color: blue">{{course.name}}</span>!<br />{{course.description}}
+</p>
+
+
+<div class="row justify-content-center">
+    {% for lesson in course.lessons.all %}
+
 
     <a href="{% url 'lesson_detail' lesson.pk %}" style="text-decoration: none;">
-        <!-- link to post_detail.html when it's done! -->
-        <div class="card anchor" style="width: 18rem; padding: 20px; margin: 20px; background:#c0c49b;">
-            <h5 class="card-title" style="color: black;">{{lesson.course}}</h5>
+
+        <div class="card center" style="width: 70rem; padding: 20px; margin: 20px; background:#cbcdccc6;">
+            <h5 class="card-header" style="color: black;">{{lesson.course}}</h5>
 
             <div class="card-body">
                 <h5 class="card-title" style="color: black;">{{lesson.title}}</h5>
                 <p class="card-text ">{{lesson.description}}</p>
             </div>
+            {% if user.is_teacher %}
             <a href="{% url 'lesson_edit' lesson.pk %}">Edit</a><br>
             <a href="{% url 'lesson_delete' lesson.pk %}">Delete</a>
+            {% endif %}
 
         </div>
     </a>
@@ -56,6 +80,28 @@
 
 {% endfor %}
 
+{% for lab in course.labs.all %}
+<a href="{% url 'lab_detail' lab.pk %}" style="text-decoration: none;">
+    <div class="card anchor" style="width: 70rem; padding: 20px; margin: 20px; background:#c4bf9bba;">
+        <h5 class="card-title" style="color: black;">{{lab.types}}</h5>
+
+        <div class="card-body">
+            <h5 class="card-title" style="color: black;">{{lab.course}}</h5>
+            <h5 class="card-title" style="color: black;">{{lab.title}}</h5>
+            <p class="card-text ">{{lab.description}}</p>
+            {% if lab.lab_deliverable %}
+            <p class="card-text">Deliverable</p>
+            {% endif %}
+        </div>
+    </div>
+</a>
+{% empty %}
+    <div class="card-body">
+
+        <p class="card-text">No Lessons </p>
+
+    </div>
+{% endfor %}
 
 
 <div class="modal fade" id="staticBackdrop" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
@@ -73,8 +119,8 @@
                             <input class="form-control" type="text" name="title" placeholder="Title" required />
                         </div>
                         <div class="control">
-                            <input class="form-control" type="description" name="description" placeholder="description"
-                                 />
+                            <input class="form-control" type="description" name="description"
+                                placeholder="description" />
                         </div>
                         <div class="control">
                             <input class="button is-primary" type="submit" value="Add Lesson" />
@@ -122,8 +168,7 @@
                                 required />
                         </div>
                         <div class="control">
-                            <input class="form-control" type="checkbox" name="lab_deliverable" default="false"
-                                 />
+                            <input class="form-control" type="checkbox" name="lab_deliverable" default="false" />
                         </div>
                         <div class="control">
                             <input class="button is-primary" type="submit" value="Add lab" />
@@ -144,37 +189,6 @@
 </div>
 
 
-{% for lab in course.labs.all %}
-<div class="gallery">
 
-    <a href="{% url 'lab_detail' lab.pk %}" style="text-decoration: none;">
-        <!-- link to post_detail.html when it's done! -->
-        <div class="card anchor" style="width: 18rem; padding: 20px; margin: 20px; background:#c0c49b;">
-            <h5 class="card-title" style="color: black;">{{lab.types}}</h5>
-
-            <div class="card-body">
-                <h5 class="card-title" style="color: black;">{{lab.course}}</h5>
-                <h5 class="card-title" style="color: black;">{{lab.title}}</h5>
-                <p class="card-text ">{{lab.description}}</p>
-                {% if lab.lab_deliverable %}
-              <p class="card-text">Deliverable</p>
-              {% endif %}
-            </div>
-            <a href="{% url 'lab_edit' lab.pk %}">Edit</a><br>
-            <a href="{% url 'lab_delete' lab.pk %}">Delete</a>
-
-        </div>
-    </a>
-    {% empty %}
-    <div class="card-body">
-
-        <p class="card-text">No Labs </p>
-
-    </div>
-    </a>
-</div>
-</div>
-
-{% endfor %}
 
 {% endblock %}

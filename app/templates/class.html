@@ -1,35 +1,68 @@
 {% extends 'base.html' %} {% block content %}
-
-<h1>Coruses</h1>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat:wght@500&display=swap');
+ 
+  body {
+     background-image: url("../static/images/bg6.jpg");
+     height: 100%;
+   
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+ }
+ p {
+   color: black;
+   font-family: 'Montserrat', sans-serif;
+ }
+ .card {
+        margin: 0 auto; /* Added */
+        float: none; /* Added */
+        margin-bottom: 10px; /* Added */
+}
+ </style>
+ <div style="display: flex; justify-content: center;">
+ <img class="fw-light" src="../static/images/logo3.png" style="width: 150px; padding-top: 0%; "></div>
+<h1 style="text-align: center; font-family: 'Abril Fatface', cursive; padding-top: 0%; font-size: 80px;">Class Room</h1>
 <h2>welcome: {{user.username}}</h2>
-<a href="{% url 'logout' %}">Logout</a> <br>
 
-{% if user.is_teacher %}
-<a action="" data-toggle="modal" data-target="#staticBackdrop">
-    add lesson
-</a>
-{% endif %}
 
-<div class="gallery">
+
+
+<div class="row justify-content-center" >
+  
     {% for lesson in lessons %}
     <a href="{% url 'lesson_detail' lesson.pk %}" style="text-decoration: none;"> 
-      <div class="card anchor"
-        style="width: 18rem; padding: 20px; margin: 20px; background:#c0c49b;">
-        <h5 class="card-title" style="color: black;">{{lesson.course}}</h5>
+      <div class="card center"
+        style="width: 70rem; padding: 20px; margin: 20px; background:#cbcdccc6;">
+        <h5 class="card-header" style="color: black;">{{lesson.course}}</h5>
         
         <div class="card-body">
           <h5 class="card-title" style="color: black;">{{lesson.title}}</h5>
           <p class="card-text ">{{lesson.description}}</p>
         </div>
+        <div class="card-footer" style="background-color: #e1e1e1cf;">
+          {% for comment in lesson.comments.all %}
+              <p>
+                  <span class="font-weight-bold">{{ comment.author }} &middot;</span>
+                  {{ comment }}
+              </p>
+              {% if user.id == comment.author.id %}
+              <a href="{% url 'comment_edit' comment.pk %}">edit</a>
+              <a href="{% url 'comment_delete' comment.pk %}">Delete </a>
+              {% endif %}
+          {% endfor %}
+          <a href="{% url 'comment_create' lesson.pk %}">+ New Comment</a>
+      </div> 
       </div>
     </a>
     {% endfor %}
 
-    <div class="gallery">
+    
         {% for lab in labs %}
         <a href="{% url 'lab_detail' lab.pk %}" style="text-decoration: none;">
           <div class="card anchor"
-            style="width: 18rem; padding: 20px; margin: 20px; background:#c0c49b;">
+            style="width: 70rem; padding: 20px; margin: 20px; background:#c4bf9bba;">
             <h5 class="card-title" style="color: black;">{{lab.types}}</h5>
             
             <div class="card-body">
@@ -43,5 +76,5 @@
           </div>
         </a>
         {% endfor %}
-
+        </div>
 {% endblock %}

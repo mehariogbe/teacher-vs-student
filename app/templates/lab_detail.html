@@ -1,5 +1,25 @@
 {% extends 'base.html' %} {% block content %}
-
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat:wght@500&display=swap');
+    body {
+       background-image: url("../static/images/bg6.jpg");
+       height: 100%;
+     
+       background-position: center;
+       background-repeat: no-repeat;
+       background-size: cover;
+   }
+   p {
+     color: black;
+     font-family: 'Montserrat', sans-serif;
+   }
+   .card {
+          margin: 0 auto; /* Added */
+          float: none; /* Added */
+          margin-bottom: 10px; /* Added */
+  }
+   </style>
 <div class="card-body">
 
     <h5 class="card-title" style="color:#D5DCDC;">{{lab.course}}</h5>
