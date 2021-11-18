@@ -2,6 +2,7 @@
 
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
  body {
     background-image: url("../static/images/bg6.jpg");
     height: 100%;
@@ -18,28 +19,30 @@
           <div class="col-lg-6 col-md-8 mx-auto">
    
             <img class="fw-light" src="../static/images/logo3.png" style="width: 250px; padding-top: 0%;">
-            <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+            <p class="lead text-muted">Teachers vs Students is the best App that is designed to manage and simplify the day-to-day communication between students and teachers.Teachers can more easily input, manage, and access  data. And students can easily access, deliver and engage with their teachers and other students. In order to get started Register below.</p>
             <p>
+              
               <a href="{% url 'register' %}" class="btn btn-primary my-2">Register Here</a>
               <a href="{% url 'login' %}" class="btn btn-secondary my-2">Login</a>
+              
             </p>
           </div>
         </div>
       </section>
 <div>
-     <h1>Different courses</h1>
+     <h1 style="text-align: center; font-family: 'Montserrat';">Different courses</h1>
     <div class="row" style="color: transparent;">
         {% for course in courses %}
-        <a href="#" style="text-decoration: none;">
+       
           <div class="card anchor "
-            style="width: 16rem; padding: 20px; margin: 20px; background:#c0c49b;">
+            style="width: 16rem; padding: 20px; margin: 20px; background:#7d7465;">
             <img src="{{course.image}}" style="height: 16rem;"class="card-img-top" alt="{{course.name}}">
             <div class="card-body">
               <h5 class="card-title" style="color: black;">{{course.name}}</h5>
               
             </div>
           </div>
-        </a>
+      
     
         {% endfor %}
     

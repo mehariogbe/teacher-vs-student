@@ -12,15 +12,13 @@
         color: black;
         font-family: 'Montserrat', sans-serif;
     }
-
-   
 </style>
 <div class="card-body">
 
     <h5 class="card-title"
         style="text-align: center; font-family: 'Abril Fatface', cursive; padding-top: 0%; font-size: 80px;">
         {{lesson.course}}</h5>
-    <h5  style="text-align: center; text-decoration: bold;font-size: 30px; font-family: 'Abril Fatface' ">Lesson</h5>    
+    <h5 style="text-align: center; text-decoration: bold;font-size: 30px; font-family: 'Abril Fatface' ">Lesson</h5>
     <h5
         style="text-align: center; text-decoration: underline; font-family: 'Montserrat'; color: rgba(0, 18, 18, 0.571);">
         Title </h5>
@@ -36,22 +34,58 @@
     <a style="cursor: pointer; color: red;" href="{% url 'lesson_delete' lesson.pk %}">Delete</a>
 </div>
 {% endif %}
-    <br><br>
-    <div class="card-footer">
-        <h3>Comments</h3>
-        <a style="cursor: pointer;"href="{% url 'comment_create' lesson.pk %}">+ New Comment</a>
-        {% for comment in lesson.comments.all %}
-        <p>
-            <span class="font-weight-bold">{{ comment.author }} &middot;</span>
-            {{ comment }}
-        </p>
-        {% if user.id == comment.author.id %}
-        <a style="cursor: pointer;" href="{% url 'comment_edit' comment.pk %}">Edit</a>
-        <a style="cursor: pointer; color: rgba(244, 50, 50, 0.749);" href="{% url 'comment_delete' comment.pk %}">Delete</a>
-        {% endif %}
-        {% endfor %}
-        
+<br><br>
+<div class="card-footer">
+    <h3>Comments</h3>
+    <a style="cursor: pointer;" href="{% url 'comment_create' lesson.pk %}" data-toggle="modal"
+        data-target="#staticBackdrop">+ New Comment</a>
+    {% for comment in lesson.comments.all %}
+    <p>
+        <span class="font-weight-bold">{{ comment.author }} &middot;</span>
+        {{ comment }}
+    </p>
+    {% if user.id == comment.author.id %}
+    <a style="cursor: pointer;" href="{% url 'comment_edit' comment.pk %}">Edit</a>
+    <a style="cursor: pointer; color: rgba(244, 50, 50, 0.749);" href="{% url 'comment_delete' comment.pk %}">Delete</a>
+    {% endif %}
+    {% endfor %}
+
+</div>
+</div>
+
+<div class="modal fade" id="staticBackdrop" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" style="background: rgba(231, 232, 213, 0.899);">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add Comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="mb-5" action="{% url 'comment_create' lesson.pk %}" method="post">
+                    {% csrf_token %}
+
+
+                    <div class="form-group">
+                        <label for="id_comment" class="col-form-label">Comment:</label>
+                        <textarea class="form-control" type="description" id="id_comment" maxlength="250" name="comment"
+                            placeholder="Comment"></textarea>
+                    </div>
+                    <div class="control">
+                        <input class="button is-primary" type="submit" value="Add Comment" />
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
     </div>
 </div>
+<!-- Edit Modal -->
+
+
+
 
 {% endblock %}

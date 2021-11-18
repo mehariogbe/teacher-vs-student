@@ -1,16 +1,13 @@
 {% extends 'base.html' %} {% block content %}
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat:wght@500&display=swap');
-  
+    
     body {
-  
-        background-image: linear-gradient(rgba(255, 232, 174, 0.892), rgba(106, 164, 250, 0.81));
+        background-color: rgba(255, 232, 174, 0.892);
     }
   </style>
-<h1 class="title pt-5">Are you sure you want to Delete {{comment.comment}} ?</h1>
-<form method="post">
+<h1 class="title pt-5" style="text-align: center;">Are you sure you want to Delete {{comment.comment}} ?</h1>
+<form method="post" style="text-align: center;">
     {% csrf_token %}
     <div class="buttons">
 

@@ -1,18 +1,16 @@
 {% extends 'base.html' %}
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat:wght@500&display=swap');
-  
+   
     body {
   
-        background-image: linear-gradient(rgba(255, 232, 174, 0.892), rgba(106, 164, 250, 0.81));
+        background-color: rgba(255, 232, 174, 0.892);
     }
   </style>
 
 {% block content %}
-    <h1 style="text-align: center;   padding-top: 0%; font-size: 30px;">Add comment</h1>
-    <form method="post">
+    <h1 style="text-align: center;   padding-top: 0%; font-size: 30px;">Edit comment</h1>
+    <form method="post" style="text-align: center;">
         {% csrf_token %}
         {{ form }}
         <button class="btn btn-info" type="submit">Add Comment</button>

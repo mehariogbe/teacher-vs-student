@@ -48,11 +48,12 @@
                   {{ comment }}
               </p>
               {% if user.id == comment.author.id %}
-              <a href="{% url 'comment_edit' comment.pk %}">edit</a>
-              <a href="{% url 'comment_delete' comment.pk %}">Delete </a>
+              <a href="{% url 'comment_edit' comment.pk %}">Edit</a>
+              <a style="cursor: pointer; color: red;" href="{% url 'comment_delete' comment.pk %}">Delete </a>
               {% endif %}
           {% endfor %}
-          <a href="{% url 'comment_create' lesson.pk %}">+ New Comment</a>
+          <br></br>
+          <a href="{% url 'comment_create' lesson.pk %}" >+ New Comment</a>
       </div> 
       </div>
     </a>

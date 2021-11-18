@@ -3,8 +3,8 @@
 <!-- {% block title %}Add Comment{% endblock title %} -->
 
 {% block content %}
-    <h1>Add comment</h1>
-    <form method="post">
+    <h1 style="text-align: center;">Add comment</h1>
+    <form style="text-align: center;" method="post">
         {% csrf_token %}
         {{ form }}
         <button class="btn btn-info" type="submit">Add Comment</button>

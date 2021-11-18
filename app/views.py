@@ -102,7 +102,7 @@ def logout_view(request):
 
 # Views for Courses
 
-
+@method_decorator(login_required,  name='dispatch')
 class Course_list(TemplateView):
     template_name = "course_list.html"
 
@@ -111,7 +111,7 @@ class Course_list(TemplateView):
         context["courses"] = Course.objects.all()
         return context
 
-
+@method_decorator(login_required,  name='dispatch')
 class CourseDetail(DetailView):
     model = Course
     template_name = "course_detail.html"
@@ -119,7 +119,7 @@ class CourseDetail(DetailView):
 
 # Views for Lesson
 
-
+@method_decorator(login_required,  name='dispatch')
 class LessonCreate(View):
 
     def post(self, request, pk):
@@ -145,7 +145,7 @@ class LessonDelete(DeleteView):
     template_name = "lesson_delete.html"
     success_url = "/class/"
 
-
+@method_decorator(login_required,  name='dispatch')
 class Lesson_detail(DetailView):
     model = Lesson
     template_name = "lesson_detail.html"
@@ -181,13 +181,8 @@ class LabCreate(CreateView):
                            course=course, lab_deliverable=lab_deliverable)
         return redirect('course_detail', pk=pk)
 
-# class LabCreate(CreateView):
-#     model = Lab
-#     fields = ["types", "title", "description", "course", "lab_deliverable"]
-#     template_name = "lab_create.html"
-#     success_url = "/class/"
 
-
+@method_decorator(login_required,  name='dispatch')
 class Lab_detail(DetailView):
     model = Lab
     template_name = "lab_detail.html"
@@ -220,7 +215,7 @@ class DeliverableCreate(CreateView):
         Deliverable.objects.create(
             title=title, description=description, lab=lab, user=user)
         return redirect('lab_detail', pk=pk)
-
+@method_decorator(login_required,  name='dispatch')
 class DeliverablePage(TemplateView):
     template_name = "deliverables.html"
 
@@ -229,13 +224,13 @@ class DeliverablePage(TemplateView):
         context["deliverables"] = Deliverable.objects.all()
         
         return context
-
+@method_decorator(login_required,  name='dispatch')
 class Deliverable_detail(DetailView):
     model = Deliverable
     template_name = "deliverable_detail.html"        
     
 #  Views For Comment
-
+@method_decorator(login_required,  name='dispatch')
 class CommentCreate(CreateView):
     model = Comment
     template_name = "comment_create.html"
