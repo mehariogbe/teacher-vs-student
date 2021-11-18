@@ -9,15 +9,99 @@
        background-size: cover;
    
     }
+    .form-signin {
+    width: 100%;
+    max-width: 430px;
+    padding: 15px;
+    margin: auto;  
+  }
+  .form-signin .checkbox {
+    font-weight: 400;
+  }
+  .form-signin .form-floating:focus-within {
+    z-index: 2;
+  }
+  .form-signin input[type="text"] {
+    margin-bottom: 20px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .form-signin input[type="email"] {
+    margin-bottom: 20px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .form-signin input[type="password"] {
+    margin-bottom: 20px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 10px;
+  }
    </style>
-<h1>Student Signup</h1>
 
-<div >
-    <form action="{% url 'student_signup' %}" method="POST">
-        {% csrf_token %}
-        {{form}}
-        <input type="submit" value="Register" class="btn btn-block btn-primary">
-    </form> 
+
+<div style="display: flex; justify-content: center;">
+    <img class="fw-light" src="../static/images/logo3.png" style="width: 170px; padding-top: 0%; ">
 </div>
+<h1 style="text-align: center; font-family: 'Abril Fatface', cursive; padding-top: 0%; font-size: 50px;">Student Signup Page</h1>
+
+<body class="signup-page">
+
+  
+    <main class="form-signin">
+        <form method="post" action="{% url 'student_signup' %}">
+            {% csrf_token %}
+
+            <div class="form-floating">
+
+                <input type="text" name="username" class="form-control" maxlength="150" autofocus required id="id_username"
+                    id="floatingInput" placeholder="Username">
+                
+
+            </div>
+            <div class="form-floating">
+
+                <input type="text" name="first_name" class="form-control"   required id="id_first_name"
+                    id="floatingInput" placeholder="First Name">
+                
+
+            </div>
+            <div class="form-floating">
+
+                <input type="text" name="last_name" class="form-control"   required id="id_last_name"
+                    id="floatingInput" placeholder="Last Name">
+                
+
+            </div>
+            <div class="form-floating">
+
+                <input type="email" name="email" class="form-control" required id="id_email" id="floatingInput"
+                    placeholder="E-mail">
+                
+
+            </div>
+            <div class="form-floating">
+
+                <input type="password" class="form-control" name="password1" id="floatingPassword"
+                    autocomplete="new-password" required id="id_password1" placeholder="Password">
+                
+            </div>
+            <div class="form-floating">
+
+                <input type="password" class="form-control" name="password2" id="floatingPassword"
+                    autocomplete="new-password" required id="id_password2" placeholder="Password">
+               
+            </div>
+
+            <button type="submit" class="w-100 btn btn-lg btn-primary" value="Register">Submit</button>
+            <input type="hidden" name="next" value="{{ next }}" />
+
+        </form>
+        <div class="signup-error" style="color: red; text-align: center;">
+            {{ form.errors }}
+        </div>
+
+    </main>
+</body>
 
 {% endblock %} 

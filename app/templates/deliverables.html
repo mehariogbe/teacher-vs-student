@@ -1,13 +1,39 @@
 {% extends 'base.html' %} {% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat:wght@500&display=swap');
+   
+    body {
+       background-image: url("../static/images/bg6.jpg");
+       height: 100%;
+     
+       background-position: center;
+       background-repeat: no-repeat;
+       background-size: cover;
+   }
+   p {
+     color: black;
+     font-family: 'Montserrat', sans-serif;
+   }
+   .card {
+          margin: 0 auto; /* Added */
+          float: none; /* Added */
+          margin-bottom: 10px; /* Added */
+  }
+   </style>
+   <div style="display: flex; justify-content: center;">
+   <img class="fw-light" src="../static/images/logo3.png" style="width: 170px; padding-top: 0%; "></div>
+  <h1 style="text-align: center; font-family: 'Abril Fatface', cursive; padding-top: 0%; font-size: 80px;">Deliverables</h1>
+  
 
-<h1>Deliverables</h1>
 
-<div class="gallery">
+  <div class="row justify-content-center" >
     {% for deliverable in deliverables %}
-    <a href="" style="text-decoration: none;">
-        <div class="card anchor" style="width: 18rem; padding: 20px; margin: 20px; background:#c0c49b;">
-            <h5 class="card-title" style="color: black;">{{deliverable.lab}}</h5>
-
+    <a href="{% url 'deliverable_detail' deliverable.pk %}" style="text-decoration: none;">
+        
+        <div class="card center"
+            style="width: 70rem; padding: 20px; margin: 20px; background:#cbcdccc6;">
+            <h5 class="card-header" style="color: black;">{{deliverable.lab}}</h5>    
             <div class="card-body">
                 <h5 class="card-title" style="color: black;">{{deliverable.title}}</h5>
                 <p class="card-text ">{{deliverable.description}}</p>

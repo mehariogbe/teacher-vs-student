@@ -229,6 +229,10 @@ class DeliverablePage(TemplateView):
         context["deliverables"] = Deliverable.objects.all()
         
         return context
+
+class Deliverable_detail(DetailView):
+    model = Deliverable
+    template_name = "deliverable_detail.html"        
     
 #  Views For Comment
 

@@ -10,7 +10,46 @@
    
     }
 </style>
-<h1> Students Profile</h1>
-<h2>welcome: {{user.username}}</h2>
-<a href="{% url 'logout' %}">Logout</a> <br>
+
+
+<div style="display: flex; justify-content: center;">
+    <img class="fw-light" src="../static/images/logo3.png" style="width: 170px; padding-top: 0%; ">
+</div>
+<h1 style="text-align: center; font-family: 'Abril Fatface', cursive; padding-bottom: 3%; font-size: 50px;">Student Profile Page</h1>
+
+<div class="card-columns">
+<div class="card" style="width: 18rem; height: 27rem; margin-left: 20px; background-color: rgba(0, 0, 0, 0.324);">
+    <div class="card-body">
+      <h5 class="card-title">Menu</h5>
+      <ul class="nav nav-pills flex-column   " style="padding-top: 5%;">
+        <li style="font-size: 23px; padding-bottom: 10px;">
+            <a style="color:black;" href="/home">Home</a>
+        </li> 
+        <li style="font-size: 23px; padding-bottom: 10px;">
+            <a style="color:black;" href="/courses">Courses</a>
+        </li>
+        <li style="font-size: 23px; padding-bottom: 10px;">
+            <a style="color:black;" href="/class">Class Room</a>
+        </li>
+          
+        
+      </ul>
+      
+      
+    </div>
+  </div>
+
+  <div class="card text-center " style="background-color: blanchedalmond; width: 50rem; height: 20rem;">
+    <div class="card-header">
+        Welcome {{user.username}}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Profile</h5>
+      <p class="card-text">First Name : {{user.first_name}}</p>
+      <p class="card-text">Last Name : {{user.last_name}}</p>
+      <p class="card-text">Email : {{user.email}}</p>
+      
+    </div>
+    
+</div>
 {% endblock %}

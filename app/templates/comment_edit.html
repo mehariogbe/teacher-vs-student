@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 
-<!-- {% block title %}Add Comment{% endblock title %} -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat:wght@500&display=swap');
+  
+    body {
+  
+        background-image: linear-gradient(rgba(255, 232, 174, 0.892), rgba(106, 164, 250, 0.81));
+    }
+  </style>
 
 {% block content %}
-    <h1>Add comment</h1>
+    <h1 style="text-align: center;   padding-top: 0%; font-size: 30px;">Add comment</h1>
     <form method="post">
         {% csrf_token %}
         {{ form }}

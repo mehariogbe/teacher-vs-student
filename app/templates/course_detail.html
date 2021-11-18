@@ -6,7 +6,7 @@
 
     body {
 
-        background-image: linear-gradient(rgba(247, 235, 204, 0.892), rgba(106, 164, 250, 0.81));
+        background-image: linear-gradient(rgba(255, 232, 174, 0.892), rgba(106, 164, 250, 0.81));
     }
 </style>
 
@@ -14,18 +14,7 @@
 <h1 style="text-align: center; font-family: 'Abril Fatface', cursive; padding-top: 0%; font-size: 80px;">Course
     {{course.name}}</h1>
 
-{% if user.is_teacher %}
-<div style="font-family: Abril Fatface; position: center;">
-    <a action="{% url 'lesson_create' course.pk %}" style="padding-right: 15px; cursor: pointer; font-size: 20px;"
-        data-toggle="modal" data-target="#staticBackdrop">
-        Add Lesson
-    </a>
-    <a action="{% url 'lab_create' course.pk %}" style="cursor: pointer; font-size: 20px;" data-toggle="modal"
-        data-target="#staticBackdrop2">
-        Add Lab
-    </a>
-</div>
-{% endif %}
+
 
 
 <img style='
@@ -46,7 +35,18 @@ border-radius: 5px;
 ">
     <span style="color: blue">{{course.name}}</span>!<br />{{course.description}}
 </p>
-
+{% if user.is_teacher %}
+<div style="font-family: Abril Fatface; position: center; text-align: center;">
+    <a action="{% url 'lesson_create' course.pk %}" style="padding-right: 15px; cursor: pointer; font-size: 20px;"
+        data-toggle="modal" data-target="#staticBackdrop">
+        Add Lesson
+    </a>
+    <a action="{% url 'lab_create' course.pk %}" style="cursor: pointer; font-size: 20px;" data-toggle="modal"
+        data-target="#staticBackdrop2">
+        Add Lab
+    </a>
+</div>
+{% endif %}
 
 <div class="row justify-content-center">
     {% for lesson in course.lessons.all %}
@@ -106,29 +106,33 @@ border-radius: 5px;
 
 <div class="modal fade" id="staticBackdrop" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">?</h5>
+    <div class="modal-dialog modal-dialog-centered modal-lg" >
+        <div class="modal-content" style="background: rgba(231, 232, 213, 0.899);">
+            <div class="modal-header" >
+                <h5 class="modal-title" id="staticBackdropLabel">Add A New Lesson</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="modal-footer">
+            <div class="modal-body">
                 <form class="mb-5" action="{% url 'lesson_create' course.pk %}" method="post">
                     {% csrf_token %}
-                    <div class="field has-addons">
-                        <div class="control">
-                            <input class="form-control" type="text" name="title" placeholder="Title" required />
+                    
+                        <div class="form-group">
+                            <label for="title-name" class="col-form-label">Title:</label>
+                            <input class="form-control" type="text" name="title" id="title-name" placeholder="Title" required />
                         </div>
-                        <div class="control">
-                            <input class="form-control" type="description" name="description"
-                                placeholder="description" />
+                        <div class="form-group">
+                            <label for="description-text" class="col-form-label">Description:</label>
+                            <textarea class="form-control" type="description" id="description-text" name="description"
+                                placeholder="description"></textarea>
                         </div>
                         <div class="control">
                             <input class="button is-primary" type="submit" value="Add Lesson" />
                         </div>
-                    </div>
+                    
                 </form>
-                <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button> -->
-                <!-- Bootstrap popup modal -->
+                
             </div>
         </div>
     </div>
@@ -136,23 +140,26 @@ border-radius: 5px;
 
 </div>
 </div>
-<!-- </a> -->
 
 </div>
 
 
 <div class="modal fade" id="staticBackdrop2" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" style="background: rgba(215, 216, 186, 0.89);">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">?</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Add A New Lab</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="modal-footer">
+            <div class="modal-body">
                 <form class="mb-5" action="{% url 'lab_create' course.pk %}" method="post">
                     {% csrf_token %}
-                    <div class="field has-addons">
+                   
                         <div class="dropdown">
+                            <label for="id_types" class="col-form-label">Lab Types:</label>
                             <select name="types" required id="id_types">
                                 <option value selected>---------</option>
                                 <option value="Lab">lab</option>
@@ -160,20 +167,25 @@ border-radius: 5px;
                                 <option value="Project">Project</option>
                             </select>
                         </div>
-                        <div class="control">
-                            <input class="form-control" type="text" name="title" placeholder="Title" required />
+                        <div class="form-group">
+                            <label for="title-name" class="col-form-label">Title:</label>
+                            <input class="form-control" type="text" name="title" id="title-name" placeholder="Title" required />
                         </div>
-                        <div class="control">
-                            <input class="form-control" type="description" name="description" placeholder="description"
-                                required />
+                        <div class="form-group">
+                            <label for="description-text" class="col-form-label">Description:</label>
+                            <textarea class="form-control" type="description" name="description" id="description-text" placeholder="description"
+                                required ></textarea>
                         </div>
-                        <div class="control">
-                            <input class="form-control" type="checkbox" name="lab_deliverable" default="false" />
+  
+                        <div class="form-check">
+                            
+                            <input class="form-check-input" type="checkbox" name="lab_deliverable" id="deliverable" default="false" />
+                            <label class="form-check-label" for="deliverable">Lab Deliverable</label>
                         </div>
                         <div class="control">
                             <input class="button is-primary" type="submit" value="Add lab" />
                         </div>
-                    </div>
+                   
                 </form>
                 <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button> -->
                 <!-- Bootstrap popup modal -->

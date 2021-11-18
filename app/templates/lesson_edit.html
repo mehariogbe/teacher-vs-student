@@ -1,10 +1,16 @@
 {% extends 'base.html' %} {% block content %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat:wght@500&display=swap');
 
-<body 
-  class="edit_park" 
-  style="background: rgb(194, 222, 185);"
->
-  <h1 class="pt-3">Update {{lesson.title}}</h1>
+  body {
+
+      background-image: linear-gradient(rgba(255, 232, 174, 0.892), rgba(106, 164, 250, 0.81));
+  }
+</style>
+<body>
+  
+  <h1 style="text-align: center;   padding-top: 0%; font-size: 30px;">Update {{lesson.title}}</h1>
 
   <form
     action="{% url 'lesson_edit' lesson.pk %}"

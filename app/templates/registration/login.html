@@ -9,19 +9,73 @@
      background-size: cover;
  
   }
+  .form-signin {
+  width: 100%;
+  max-width: 430px;
+  padding: 15px;
+  margin: auto;  
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+.form-signin input[type="text"] {
+  margin-bottom: 20px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="email"] {
+  margin-bottom: 20px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 20px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding: 10px;
+}
  </style>
-<main>
-<form action="{% url 'login' %}" method="POST" novalidate>
+<!-- <form action="{% url 'login' %}" method="POST" novalidate>
     {% csrf_token %}
        {{form}}
        <br>
            <input type="submit" value="Login" class="btn btn-block btn-primary">
          </div>
   </form>
-{% if form.non_field_errors %}
-{% for error in form.non_field_errors %}
-<p style="color: red; text-align: center;">{{ error }}</p>
-{% endfor %}
-{% endif %}
-</main>
+
+</main> -->
+<div style="display: flex; justify-content: center;">
+  <img class="fw-light" src="../static/images/logo3.png" style="width: 190px; padding-top: 0%; ">
+</div>
+<h1 style="text-align: center; font-family: 'Abril Fatface', cursive; padding-bottom: 40px; font-size: 50px;">Log In</h1>
+<body class="login-page">
+  
+  <main class="form-signin">
+      <form method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+          <div class="form-floating">
+              <input type="text" name="username" class="form-control" required id="id_username" id="floatingInput"
+                 maxlength="150" placeholder="Username">
+              
+  
+          </div>
+          <div class="form-floating">
+              <input type="password" class="form-control" name="password" id="floatingPassword" required id="id_password"
+                  placeholder="Password">
+              
+          </div>
+  
+          <button type="submit" class="w-100 btn btn-lg btn-primary" value="login">Submit</button>
+          <input type="hidden" name="next" value="{{ next }}" />
+  
+      </form>
+  </main>
+  <div class="signup-error" style="color: red; text-align: center;">
+    {{ form.errors }}
+</div>
+  
+  </body>
   {% endblock %} 
