@@ -1,5 +1,4 @@
 from django.db.models import fields
-
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import login, logout, authenticate
