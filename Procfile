@@ -1,1 +1,1 @@
-web: gunicorn gettingstarted.wsgi
+web: gunicorn teacher_student.wsgi
