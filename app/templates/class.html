@@ -2,80 +2,84 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat:wght@500&display=swap');
- 
+
   body {
-     background-image: url("../static/images/bg6.jpg");
-     height: 100%;
-   
-     background-position: center;
-     background-repeat: no-repeat;
-     background-size: cover;
- }
- p {
-   color: black;
-   font-family: 'Montserrat', sans-serif;
- }
- .card {
-        margin: 0 auto; /* Added */
-        float: none; /* Added */
-        margin-bottom: 10px; /* Added */
-}
- </style>
- <div style="display: flex; justify-content: center;">
- <img class="fw-light" src="../static/images/logo3.png" style="width: 170px; padding-top: 0%; "></div>
+    background-image: url("../static/images/bg6.jpg");
+    height: 100%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  p {
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .card {
+    margin: 0 auto;
+    /* Added */
+    float: none;
+    /* Added */
+    margin-bottom: 10px;
+    /* Added */
+  }
+</style>
+<div style="display: flex; justify-content: center;">
+  <img class="fw-light" src="../static/images/logo3.png" style="width: 170px; padding-top: 0%; ">
+</div>
 <h1 style="text-align: center; font-family: 'Abril Fatface', cursive; padding-top: 0%; font-size: 80px;">Class Room</h1>
 <h6 style="text-align: center;"> Every Lessons and Labs are Here!</h6>
 
 
 
 
-<div class="row justify-content-center" >
-  
-    {% for lesson in lessons %}
-    <a href="{% url 'lesson_detail' lesson.pk %}" style="text-decoration: none;"> 
-      <div class="card center"
-        style="width: 70rem; padding: 20px; margin: 20px; background:#cbcdccc6;">
-        <h5 class="card-header" style="color: black;">{{lesson.course}}</h5>
-        
-        <div class="card-body">
-          <h5 class="card-title" style="color: black;">{{lesson.title}}</h5>
-          <p class="card-text ">{{lesson.description}}</p>
-        </div>
-        <div class="card-footer" style="background-color: #e1e1e1cf;">
-          {% for comment in lesson.comments.all %}
-              <p>
-                  <span class="font-weight-bold">{{ comment.author }} &middot;</span>
-                  {{ comment }}
-              </p>
-              {% if user.id == comment.author.id %}
-              <a href="{% url 'comment_edit' comment.pk %}">Edit</a>
-              <a style="cursor: pointer; color: red;" href="{% url 'comment_delete' comment.pk %}">Delete </a>
-              {% endif %}
-          {% endfor %}
-          <br></br>
-          <a href="{% url 'comment_create' lesson.pk %}" >+ New Comment</a>
-      </div> 
-      </div>
-    </a>
-    {% endfor %}
+<div class="row justify-content-center">
 
-    
-        {% for lab in labs %}
-        <a href="{% url 'lab_detail' lab.pk %}" style="text-decoration: none;">
-          <div class="card anchor"
-            style="width: 70rem; padding: 20px; margin: 20px; background:#c4bf9bba;">
-            <h5 class="card-title" style="color: black;">{{lab.types}}</h5>
-            
-            <div class="card-body">
-              <h5 class="card-title" style="color: black;">{{lab.course}}</h5>
-              <h5 class="card-title" style="color: black;">{{lab.title}}</h5>
-              <p class="card-text ">{{lab.description}}</p>
-              {% if lab.lab_deliverable %}
-              <p class="card-text">Deliverable</p>
-              {% endif %}
-            </div>
-          </div>
-        </a>
+  {% for lesson in lessons %}
+  <a href="{% url 'lesson_detail' lesson.pk %}" style="text-decoration: none;">
+    <div class="card center" style="width: 70rem; padding: 20px; margin: 20px; background:#cbcdccc6;">
+      <h5 class="card-header" style="color: black;">{{lesson.course}}</h5>
+
+      <div class="card-body">
+        <h5 class="card-title" style="color: black;">{{lesson.title}}</h5>
+        <p class="card-text ">{{lesson.description}}</p>
+      </div>
+      <div class="card-footer" style="background-color: #e1e1e1cf;">
+        {% for comment in lesson.comments.all %}
+        <p>
+          <span class="font-weight-bold">{{ comment.author }} &middot;</span>
+          {{ comment }}
+        </p>
+        {% if user.id == comment.author.id %}
+        <a href="{% url 'comment_edit' comment.pk %}">Edit</a>
+        <a style="cursor: pointer; color: red;" href="{% url 'comment_delete' comment.pk %}">Delete </a>
+        {% endif %}
         {% endfor %}
-        </div>
+        <br></br>
+        <a href="{% url 'comment_create' lesson.pk %}">+ New Comment</a>
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+<div class="row justify-content-center">
+  {% for lab in labs %}
+  <a href="{% url 'lab_detail' lab.pk %}" style="text-decoration: none;">
+    <div class="card center" style="width: 70rem; padding: 20px; margin: 20px; background:#c4bf9bba;">
+      <h5 class="card-header" style="color: black;">{{lab.types}}</h5>
+
+      <div class="card-body">
+        <h5 class="card-title" style="color: black;">{{lab.course}}</h5>
+        <h5 class="card-title" style="color: black;">{{lab.title}}</h5>
+        <p class="card-text ">{{lab.description}}</p>
+        {% if lab.lab_deliverable %}
+        <p class="card-text">Deliverable</p>
+        {% endif %}
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
 {% endblock %}

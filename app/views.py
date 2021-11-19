@@ -8,7 +8,7 @@ from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from django.views.generic import CreateView, DetailView
 from django.views.generic.edit import UpdateView, DeleteView
-from .models import Comment, Deliverable, Lab, User, Student, Teacher, Course, Lesson
+from .models import Book, Comment, Deliverable, Lab, User, Student, Teacher, Course, Lesson
 from .form import StudentSignUpForm, TeacherSignUpForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
@@ -258,5 +258,10 @@ class CommentDelete(DeleteView):
     def get_success_url(self):
         lesson = self.object.lesson
         return reverse_lazy('lesson_detail', kwargs={'pk': lesson.id })
+
+ # Views for Books
+class BooksList(TemplateView):
+    template_name = "library.html"
+
   
 

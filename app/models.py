@@ -118,4 +118,19 @@ class Comment(models.Model):
         return self.comment
 
     class Meta:
-        ordering = ['created_at']    
+        ordering = ['created_at'] 
+
+class Book(models.Model):
+    title = models.CharField(max_length=250)
+    img = models.CharField(max_length=1000)
+    author = models.CharField(max_length=100)
+    description = models.CharField(max_length=9999)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['title']     
+

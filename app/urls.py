@@ -37,6 +37,8 @@ urlpatterns = [
     path('lesson/<int:pk>/comment_edit',views.CommentEdit.as_view(), name="comment_edit"),
     path('lesson/<int:pk>/comment_delete',views.CommentDelete.as_view(), name="comment_delete"),
 
+    path('library/', views.BooksList.as_view(), name='library'),
+
 
 
 ]
