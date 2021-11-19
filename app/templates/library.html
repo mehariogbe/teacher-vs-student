@@ -2,52 +2,62 @@
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat:wght@500&display=swap');
-      body {
-         background-image: url("../static/images/bg3.jpg");
-         height: 100%;
-       
-         background-position: center;
-         background-repeat: no-repeat;
-         background-size: cover;
-     }
-     p {
+
+    body {
+        background-image: url("../static/images/bg3.jpg");
+        height: 100%;
+
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    p {
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 3;
         overflow: hidden;
-      }
-    
-  </style>
-  <div style="display: flex; justify-content: center;">
-    <img class="fw-light" src="../static/images/logo3.png" style="width: 180px; padding-top: 0%; "></div>
-  <h1 style="text-align: center; font-family: 'Abril Fatface', cursive; padding-top: 0%; font-size: 80px; color:rgb(12, 12, 12);">Library</h1>
-
-  <a class="btn btn-primary" href="{% url 'book_create' %}" data-toggle="modal" data-target="#staticBackdrop">Add Book</a>
-  <div class="row" style="color: transparent;">
+    }
+</style>
+<div style="display: flex; justify-content: center;">
+    <img class="fw-light" src="../static/images/logo3.png" style="width: 180px; padding-top: 0%; ">
+</div>
+<h1
+    style="text-align: center; font-family: 'Abril Fatface', cursive; padding-top: 0%; font-size: 80px; color:rgb(12, 12, 12);">
+    Library</h1>
+<div style="text-align: center;">
+<a class="btn btn-secondary" href="{% url 'book_create' %}"  data-toggle="modal" data-target="#staticBackdrop">Add Book</a></div>
+<div class="row" style="color: transparent;">
 
     {% for book in books %}
     <a href="" style="text-decoration: none;">
-      <div class="card anchor "
-        style="width: 18rem; padding: 20px; margin: 20px; background:#525251b5;">
-        <img src="{{book.img}}" class="card-img-top" alt="{{book.title}}">
-        <div class="card-body">
-          <h5 class="card-title" style="color: rgb(228, 228, 228);">{{book.title}}</h5>
-          <h6 class="card-subtitle mb-2 " style="color: rgb(228, 228, 228);">Author - {{book.author}}</h6>
-          <p class="card-text " style="color: rgb(228, 228, 228);">{{book.description}}</p>
-          <a href="{{book.link}}" target="_blank" class="btn btn-primary">Read Here</a>
+        <div class="card anchor " style="width: 18rem; padding: 20px; margin: 20px; background:#525251b5;">
+            <img src="{{book.img}}" class="card-img-top" alt="{{book.title}}">
+            <div class="card-body">
+                <h5 class="card-title" style="color: rgb(228, 228, 228);">{{book.title}}</h5>
+                <h6 class="card-subtitle mb-2 " style="color: rgb(228, 228, 228);">Author - {{book.author}}</h6>
+                <p class="card-text " style="color: rgb(228, 228, 228);">{{book.description}}</p>
+                <a href="{{book.link}}" target="_blank" class="btn btn-primary">Read Here</a>
+                {% if user.is_staff %}
+                <a href="{% url 'book_delete' book.pk %}" class="btn btn-danger" >Delete</a>
+                {% endif %}
+            </div>
+
+            
+
+
         </div>
-      </div>
     </a>
 
     {% endfor %}
 
-  </div>
+</div>
 
-  <div class="modal fade" id="staticBackdrop" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
+<div class="modal fade" id="staticBackdrop" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" >
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content" style="background: rgba(231, 232, 213, 0.899);">
-            <div class="modal-header" >
+            <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Add A Book</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -56,34 +66,38 @@
             <div class="modal-body">
                 <form class="mb-5" action="{% url 'book_create' %}" method="post">
                     {% csrf_token %}
-                    
-                        <div class="form-group">
-                            <label for="id_title" class="col-form-label">Title:</label>
-                            <input class="form-control" type="text" name="title" id="id_title" maxlength="250" placeholder="Title" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="id_author" class="col-form-label">Author:</label>
-                            <input class="form-control" type="text" name="author" id="id_author" maxlength="100" placeholder="Author" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="id_img" class="col-form-label">Image Address:</label>
-                            <input class="form-control" type="text" name="img" id="id_img" maxlength="1000" placeholder="Image" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="id_description" class="col-form-label">Description:</label>
-                            <textarea class="form-control" type="text" id="id_description" name="description" maxlength="9999"
-                                placeholder="Description"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="id_link" class="col-form-label">Add Link:</label>
-                            <input class="form-control" type="text" name="link" id="id_link" maxlength="500" placeholder="Link" required />
-                        </div>
-                        <div class="control">
-                            <input class="button is-primary" type="submit" value="Add Book" />
-                        </div>
-                    
+
+                    <div class="form-group">
+                        <label for="id_title" class="col-form-label">Title:</label>
+                        <input class="form-control" type="text" name="title" id="id_title" maxlength="250"
+                            placeholder="Title" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_author" class="col-form-label">Author:</label>
+                        <input class="form-control" type="text" name="author" id="id_author" maxlength="100"
+                            placeholder="Author" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_img" class="col-form-label">Image Address:</label>
+                        <input class="form-control" type="text" name="img" id="id_img" maxlength="1000"
+                            placeholder="Image" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="id_description" class="col-form-label">Description:</label>
+                        <textarea class="form-control" type="text" id="id_description" name="description"
+                            maxlength="9999" placeholder="Description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_link" class="col-form-label">Add Link:</label>
+                        <input class="form-control" type="text" name="link" id="id_link" maxlength="500"
+                            placeholder="Link" required />
+                    </div>
+                    <div class="control">
+                        <input class="button is-primary" type="submit" value="Add Book" />
+                    </div>
+
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -93,5 +107,7 @@
 </div>
 
 </div>
+
+
 
 {% endblock %}

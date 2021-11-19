@@ -1,0 +1,20 @@
+{% extends 'base.html' %} {% block content %}
+
+<style>
+    
+    body {
+        
+      background-color: rgba(255, 232, 174, 0.892);
+    }
+  </style>
+<h1 class="title pt-5" style="text-align: center;">Are you sure you want to Delete <br>{{book.title}}?</h1>
+<form method="post" style="text-align: center;">
+  {% csrf_token %}
+  <div class="buttons">
+ 
+    <input class="button is-danger" type="submit" value="Confirm" />
+  
+    <a class="button is-primary" href="{% url 'library' %}">Cancel</a >
+  </div>
+</form>
+{% endblock %}

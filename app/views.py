@@ -274,4 +274,7 @@ class BookCreate(CreateView):
     template_name = "book_create.html"
     success_url = "/library/"
   
-
+class BookDelete(DeleteView):
+    model = Book
+    template_name = "book_delete.html"
+    success_url = "/library/"
