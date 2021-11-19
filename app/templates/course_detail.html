@@ -11,7 +11,7 @@
 </style>
 
 
-<h1 style="text-align: center; font-family: 'Abril Fatface', cursive; padding-top: 0%; font-size: 80px;">Course
+<h1 style="text-align: center; font-family: 'Abril Fatface', cursive; padding-top: 0%; font-size: 80px;">
     {{course.name}}</h1>
 
 
@@ -32,8 +32,9 @@ border-radius: 5px;
 text-align: center;
 background: rgba(93, 67, 46, 0);
 border-radius: 5px;
+
 ">
-    <span style="color: blue">{{course.name}}</span>!<br />{{course.description}}
+    {{course.description}}
 </p>
 {% if user.is_teacher %}
 <div style="font-family: Abril Fatface; position: center; text-align: center;">
@@ -98,7 +99,7 @@ border-radius: 5px;
 {% empty %}
     <div class="card-body">
 
-        <p class="card-text">No Lessons </p>
+        <p class="card-text">No Labs </p>
 
     </div>
 {% endfor %}
@@ -187,8 +188,7 @@ border-radius: 5px;
                         </div>
                    
                 </form>
-                <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button> -->
-                <!-- Bootstrap popup modal -->
+               
             </div>
         </div>
     </div>
@@ -196,7 +196,7 @@ border-radius: 5px;
 
 </div>
 </div>
-<!-- </a> -->
+
 
 </div>
 
