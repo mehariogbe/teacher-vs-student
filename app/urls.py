@@ -38,6 +38,7 @@ urlpatterns = [
     path('lesson/<int:pk>/comment_delete',views.CommentDelete.as_view(), name="comment_delete"),
 
     path('library/', views.BooksList.as_view(), name='library'),
+    path('book/add', views.BookCreate.as_view(), name="book_create")
 
 
 

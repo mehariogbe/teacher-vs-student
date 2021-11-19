@@ -125,6 +125,7 @@ class Book(models.Model):
     img = models.CharField(max_length=1000)
     author = models.CharField(max_length=100)
     description = models.CharField(max_length=9999)
+    link = models.CharField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

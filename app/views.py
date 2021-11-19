@@ -263,5 +263,15 @@ class CommentDelete(DeleteView):
 class BooksList(TemplateView):
     template_name = "library.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["books"] = Book.objects.all()
+        return context
+
+class BookCreate(CreateView):
+    model = Book
+    fields = ['title', 'img', 'author', 'description', 'link']
+    template_name = "book_create.html"
+    success_url = "/library/"
   
 
