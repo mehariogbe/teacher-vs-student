@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% block content %}
 <style>
    
     body {
@@ -7,8 +8,6 @@
         background-color: rgba(255, 232, 174, 0.892);
     }
   </style>
-
-{% block content %}
     <h1 style="text-align: center;   padding-top: 0%; font-size: 30px;">Edit comment</h1>
     <form method="post" style="text-align: center;">
         {% csrf_token %}

@@ -19,11 +19,9 @@
 
   .card {
     margin: 0 auto;
-    /* Added */
     float: none;
-    /* Added */
     margin-bottom: 10px;
-    /* Added */
+   
   }
 </style>
 <div style="display: flex; justify-content: center;">
@@ -58,7 +56,7 @@
         {% endif %}
         {% endfor %}
         <br></br>
-        <a href="{% url 'comment_create' lesson.pk %}">+ New Comment</a>
+        <a href="{% url 'comment_create' lesson.pk %}" >+ New Comment</a>
       </div>
     </div>
   </a>
@@ -82,4 +80,5 @@
   </a>
   {% endfor %}
 </div>
+
 {% endblock %}
